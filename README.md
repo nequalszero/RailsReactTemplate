@@ -7,8 +7,9 @@ This project was setup using the project setup directions found below with some 
 2. Run `rake db:setup` to setup the database.
 3. Run `npm install` to install node modules.
 4. Run `webpack` to generate bundle file.
-5. Run `webpack --w` and `rails s` to start server and listen for changes.
-6. Open application at `localhost:3000`
+5. If cloning repo for new project, remember to change the database names in `config/database.yml`.
+6. Run `webpack --w` and `rails s` to start server and listen for changes.
+7. Open application at `localhost:3000`
 
 ## Project Setup Checklist
 Here's a Rails/React/Redux setup checklist.
