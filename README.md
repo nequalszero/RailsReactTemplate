@@ -11,6 +11,9 @@ This project was setup using the project setup directions found below with some 
 6. Run `webpack --w` and `rails s` to start server and listen for changes.
 7. Open application at `localhost:3000`
 
+## Notes for testing
+Run tests with `bundle exec rspec`. There is currently some error that occurs when running all the tests together, that seems be caused by the `DatabaseCleaner.clean` command in each spec file.  Running the test suites individually allows them all to pass.  This may be due to an incorrect setup on my part...
+
 ## Project Setup Checklist
 Here's a Rails/React/Redux setup checklist.
 
