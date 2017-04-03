@@ -4,7 +4,7 @@ RSpec.describe Api::SessionsController, type: :controller do
   # Clear out the test database
   DatabaseCleaner.clean
 
-  # Create two users
+  # Create a user
   new_username = "new_user"
   valid_user = { username: new_username, password: "password" }
   User.create!(valid_user)
