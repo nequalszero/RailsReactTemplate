@@ -13,14 +13,17 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  DatabaseCleaner.clean
 
   # shoulda_matcher validate_uniqueness_of requires at least one database entry
   test_username = "test_user"
   test_password = "password"
-  User.create!({username: test_username, password: test_password})
+
+  before(:all) do
+    DatabaseCleaner.clean
+    User.create!({username: test_username, password: test_password})
+  end
+
   let(:new_user) { User.new(username: "new", password: "password") }
-  puts "#{User.count} entries in database"
 
   describe "password validation" do
     it "does not accept blank passwords" do

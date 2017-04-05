@@ -128,3 +128,75 @@ that make your app available to the Internet. You *never* want gems like
 loading unnecessary code, these gems will constitute a huge security hole if
 their features are exposed to the Internet. So whenever you install a new gem,
 think carefully about which environment(s) it is applicable to.
+
+### Setting up rspec
+
+1. Add the following gems to the `Gemfile`
+
+  ```ruby
+  group :development, :test do
+    # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+    gem 'byebug'
+    gem 'rspec-rails'
+  end
+
+  group :test do
+    gem 'factory_girl_rails'
+    gem 'faker'
+    gem 'guard-rspec'
+    gem 'launchy'
+    gem 'shoulda-matchers', '~> 3.0'
+    gem 'database_cleaner'
+  end
+  ```
+2. Run `rails g rspec:install`
+3. Add the following to your `config/application.rb` to use `rspec` and `factory_girl` for testing
+  ```ruby
+  config.generators do |g|
+    g.test_framework :rspec,
+      :fixtures => false,
+      :view_specs => false,
+      :helper_specs => false,
+      :routing_specs => false,
+      :controller_specs => true,
+      :request_specs => false
+    g.fixture_replacement :factory_girl, :dir => "spec/factories"
+  end
+  ```
+
+4. Uncomment this line in `spec/rails_helper.rb`
+  ```ruby
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+  ```
+
+5. To use the `database_cleaner` gem, add the following lines to the top of `spec/rails_helper.rb`
+  ```ruby
+  require 'database_cleaner'
+
+  DatabaseCleaner.strategy = :truncation
+  ```
+
+6. Add the following to `spec/rails_helper.rb` inside the `Rails.configure` block to use `shoulda-matchers` in your tests:
+  ```ruby
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+  ```
+
+7. Add the following to the end of `spec/rails_helper.rb` inside the `Rails.configure` block to use `shoulda-matchers` in your tests:
+  ```ruby
+  RSpec.configure do |config|
+    config.include FactoryGirl::Syntax::Methods
+  end
+  ```
+
+8. Check the options being provided in `.rspec`. You may want to add `--format documentation`, it likely will already have `--color` and `--require spec_helper`
+
+  ```ruby
+  --color
+  --require spec_helper
+  --format documentation
+  ```

@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::UsersController, type: :controller do
-  DatabaseCleaner.clean
+  before(:all) do
+    DatabaseCleaner.clean
+  end
 
   context "with valid params" do
     it "validates user with valid parameters" do

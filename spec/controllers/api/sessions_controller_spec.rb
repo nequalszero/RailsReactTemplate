@@ -2,12 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Api::SessionsController, type: :controller do
   # Clear out the test database
-  DatabaseCleaner.clean
 
   # Create a user
   new_username = "new_user"
-  valid_user = { username: new_username, password: "password" }
-  User.create!(valid_user)
+  new_password = "password"
+  valid_user = { username: new_username, password: new_password }
+
+  before(:all) do
+    DatabaseCleaner.clean
+    User.create!(valid_user)
+  end
 
   describe "with valid_params" do
     before(:each) do
